@@ -100,7 +100,7 @@ def home():
 
 if __name__ == '__main__':
 
-    app.run(debug=True).predict([input_data])[0]
+    app.run().predict([input_data])[0]
 
             # Render the result in the template
             return render_template('index.html', predicted_disease=prediction)
@@ -112,4 +112,4 @@ if __name__ == '__main__':
         return render_template('index.html', message="Invalid request.")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
