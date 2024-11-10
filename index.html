@@ -14,12 +14,29 @@
 <body>
 
 <!-- main form of page -->
-<div class="login">
-    <h1>MediInsight</h1>
-    <form action="{{ url_for('predict')}}"method="post">
-        <input type="text" class="form-control" name="Symptom" placeholder="Symptoms" required="required" /><br>
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-      </form>
+<!-- In your HTML file -->
+<div class="container my-4 mt-4" style="background: black; color: white; border-radius: 15px; padding: 40px;">
+    <form action="{{ url_for('home') }}" method="post">
+        <div class="form-group">
+            <label for="symptoms">Select Symptoms:</label>
+            <input type="text" class="form-control" id="symptoms" name="symptoms" placeholder="type systems such as itching, sleeping, aching etc">
+        </div>
+        <br>
+        <!-- Speech recognition button -->
+        <button type="button" id="startSpeechRecognition" class="btn btn-primary" style="margin-left:3px;border:1px solid white; border-radius:20px;">
+            Start Speech Recognition
+        </button>
+        <br>
+        <!-- Display the transcribed text -->
+        <div id="transcription"></div>
+        
+        {% if message %}
+        <p class="text-danger">{{ message }}</p>
+        {% endif %}
+        <br>
+        
+        <button type="submit" class="btn btn-danger btn-lg" style="width: 100%; padding: 14px; margin-bottom: 5px;">Predict</button>
+    </form>
 </div>
 
 
