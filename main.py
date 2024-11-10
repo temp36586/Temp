@@ -59,7 +59,7 @@ def get_predicted_value(patient_symptoms):
 # creating routes========================================
 
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def index():
     return render_template("index.html")
 
@@ -68,37 +68,42 @@ def index():
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
-        # Get the symptoms from the form
-        symptoms = request.form.get('symptoms')
-        
-        # Check if symptoms is empty or "Symptoms"
-        if not symptoms or symptoms == "Symptoms":
-            message = "Please either write symptoms or you have written misspelled symptoms"
-            return render_template('index.html', message=message)
-            
-        # Process symptoms
-        user_symptoms = [s.strip() for s in symptoms.split(',')]
-        user_symptoms = [symptom.strip("[]' ") for symptom in user_symptoms]
-        
         try:
+            symptoms = request.form.get('symptoms', '').strip()
+            
+            if not symptoms:
+                return render_template('index.html', 
+                    message="Please enter at least one symptom")
+            
+            user_symptoms = [s.strip().lower() for s in symptoms.split(',')]
+            
+            invalid_symptoms = [s for s in user_symptoms if s not in symptoms_dict]
+            if invalid_symptoms:
+                return render_template('index.html', 
+                    message=f"Unknown symptoms: {', '.join(invalid_symptoms)}")
+            
+            # Get prediction
             predicted_disease = get_predicted_value(user_symptoms)
-            dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
             
-            my_precautions = []
-            for i in precautions[0]:
-                my_precautions.append(i)
+            # Get additional information
+            dis_des, precautions, medications_list, rec_diet, workout_list = helper(predicted_disease)
+            
+            # Format precautions
+            my_precautions = [p for p in precautions[0] if pd.notna(p)]
+            
+            return render_template('index.html',
+                predicted_disease=predicted_disease,
+                dis_des=dis_des,
+                my_precautions=my_precautions,
+                medications=medications_list,
+                my_diet=rec_diet,
+                workout=workout_list)
                 
-            return render_template('index.html', 
-                                predicted_disease=predicted_disease,
-                                dis_des=dis_des,
-                                my_precautions=my_precautions,
-                                medications=medications,
-                                my_diet=rec_diet,
-                                workout=workout)
         except Exception as e:
-            message = f"An error occurred: {str(e)}"
-            return render_template('index.html', message=message)
-            
+            return render_template('index.html', 
+                message=f"An error occurred: {str(e)}")
+    
+    # Handle GET request
     return render_template('index.html')
 
 
