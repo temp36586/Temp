@@ -66,7 +66,7 @@ def index():
 # Define a route for the home page
 # In main.py, modify the route decorator
 @app.route('/predict', methods=['GET', 'POST'])
-def home():
+def predict():
     if request.method == 'POST':
         # Get the symptoms from the form
         symptoms = request.form.get('symptoms')
@@ -103,4 +103,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True)
