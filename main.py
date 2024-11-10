@@ -65,7 +65,7 @@ def index():
 
 # Define a route for the home page
 @app.route('/predict', methods=['GET', 'POST'])
-def home():
+def predict():
     if request.method == 'POST':
         symptoms = request.form.get('symptoms')
         # mysysms = request.form.get('mysysms')
