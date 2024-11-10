@@ -69,7 +69,7 @@ def index():
 def home():
     if request.method == 'POST':
         # Get the symptoms from the form
-        symptoms = request.form.get('symptoms')
+        symptoms = str(request.form('symptoms'))
         
         # Check if symptoms is empty or "Symptoms"
         if not symptoms or symptoms == "Symptoms":
