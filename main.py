@@ -69,7 +69,7 @@ def index():
 def home():
     if request.method == 'POST':
         # Get the symptoms from the form
-        symptoms = str[request.form('symptoms')]
+        symptoms = request.form.get('symptoms')
         
         # Check if symptoms is empty or "Symptoms"
         if not symptoms or symptoms == "Symptoms":
@@ -84,9 +84,9 @@ def home():
             predicted_disease = get_predicted_value(user_symptoms)
             dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
             
-            my_precautions = ""
+            my_precautions = []
             for i in precautions[0]:
-                my_precautions = my_precautions + i
+                my_precautions.append(i)
                 
             return render_template('index.html', 
                                 predicted_disease=predicted_disease,
@@ -104,7 +104,6 @@ def home():
 
 if __name__ == '__main__':
 
-    app.run().predict([input_data])[0]
 
             # Render the result in the template
             return render_template('index.html', predicted_disease=prediction)
