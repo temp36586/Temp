@@ -21,14 +21,6 @@
             <label for="symptoms">Select Symptoms:</label>
             <input type="text" class="form-control" id="symptoms" name="symptoms" placeholder="type systems such as itching, sleeping, aching etc">
         </div>
-        <br>
-        <!-- Speech recognition button -->
-        <button type="button" id="startSpeechRecognition" class="btn btn-primary" style="margin-left:3px;border:1px solid white; border-radius:20px;">
-            Start Speech Recognition
-        </button>
-        <br>
-        <!-- Display the transcribed text -->
-        <div id="transcription"></div>
         
         {% if message %}
         <p class="text-danger">{{ message }}</p>
