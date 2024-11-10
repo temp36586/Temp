@@ -102,17 +102,5 @@ def home():
     return render_template('index.html')
 
 
-if __name__ == '__main__':
-
-
-            # Render the result in the template
-            return render_template('index.html', predicted_disease=prediction)
-
-        else:
-            # If no symptoms were provided
-            return render_template('index.html', message="Please enter symptoms.")
-    else:
-        return render_template('index.html', message="Invalid request.")
-
 if __name__ == "__main__":
     app.run()
