@@ -59,8 +59,8 @@ def get_predicted_value(patient_symptoms):
 # creating routes========================================
 
 
-@app.route("/", methods=['GET'])
-def index():
+@app.route("/")
+def home():
     return render_template("index.html")
 
 # Define a route for the home page
