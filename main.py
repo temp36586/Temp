@@ -67,6 +67,9 @@ def index():
 @app.route('/predict', methods=['GET', 'POST'])
 def home():
     print(request.method)  # This will show whether it's GET or POST
+    if request.method == 'GET':
+        # Handle GET requests
+        print( "This is a GET request")
     if request.method == 'POST':
         symptoms = request.form.get('symptoms')
         # mysysms = request.form.get('mysysms')
