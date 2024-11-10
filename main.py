@@ -84,9 +84,9 @@ def home():
             predicted_disease = get_predicted_value(user_symptoms)
             dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
             
-            my_precautions = []
+            my_precautions = ""
             for i in precautions[0]:
-                my_precautions.append(i)
+                my_precautions = my_precautions + i
                 
             return render_template('index.html', 
                                 predicted_disease=predicted_disease,
